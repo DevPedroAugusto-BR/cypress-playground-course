@@ -1,46 +1,36 @@
-<<<<<<< HEAD
-# 🌲 Cypress Playground 🛝
+# 🌲 Cypress Playground - Meu Projeto de Aprendizado
 
-👋 Seja bem-vindo(a)!
+## 📚 Sobre Este Projeto
 
-É muito bom tê-lo(a) aqui. Tenho certeza que você vai amar esse curso. ❤️
+Este repositório documenta todo o meu aprendizado através do curso **Cypress Playground** de **Walmyr Filho**. 
 
-## O que você vai aprender?
+Mais que um simples registro de estudos, este projeto serve como:
+- **Validação Técnica**: Comprovação prática de competências em testes automatizados com Cypress
+- **Referência Profissional**: Base sólida para minha evolução como QA/Engenheiro de Testes
+- **Portfólio Técnico**: Demonstração de domínio em boas práticas de automação de testes
 
-Ao realizar o curso Cypress Playground, você vai aprender:
+## 🎯 Objetivos do Aprendizado
 
-- Como configurar um projeto Cypress do zero
-- Como organizar suites de testes e casos de teste
-- Como visitar páginas web
-- Como obter elementos para interação ou verificação
-- Como clicar em botões e links
-- Como digitar em campos
-- Como marcar e desmarcar _checkboxes_
-- Como marcar _radio buttons_
-- Como selecionar opções em campos de seleção suspensa
-- Como selecionar múltiplas opções em campos do tipo _select_
-- Como testar o _upload_ de arquivos
-- Como interceptar requisições e aguardar por elas antes de seguir adiante
-- Como interceptar requisições e devolver dados estáticos ao _frontend_ com o uso de fixtures
-- Como testar a falha de uma API
-- Como testar uma falha na rede
-- Como realizar requisições REST
-- Como lidar com campos do tipo _range_
-- Como lidar com campos de data
-- Como buscar dados sensíveis armazenados em locais seguros
-- Como proteger que dados sensíveis não vazem em evidências de teste
-- Como contar elementos com Cypress
-- Como congelar o relógio do navegador
-- Como usar dados gerados pela aplicação como entrada para os testes
-- Como testar a leitura de arquivos
+Ao completar este curso, estarei capacitado em:
 
-## Vamos começar?
+- Configurar um projeto Cypress do zero
+- Organizar suites de testes e casos de teste de forma profissional
+- Navegar por páginas web e interagir com elementos
+- Implementar validações e assertions robustas
+- Trabalhar com formulários (inputs, checkboxes, radio buttons, selects)
+- Testar funcionalidades avançadas (upload, interceptação de requisições, fixtures)
+- Simular falhas de API e rede
+- Executar requisições REST
+- Proteger dados sensíveis em testes
+- Aplicar técnicas avançadas (clock freezing, data-driven testing, file handling)
 
-Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
+## 📂 Estrutura do Projeto
 
-___
+Todos os códigos, testes e documentação estão organizados na pasta `./lessons/`
 
-Este é um curso da [**Escola Talking About Testing**](https://hotmart.com/pt-br/club/talking-about-testing).
-=======
-# cypress-playground-course
->>>>>>> f59153a289919b6359a963131a5bada66fbe70b7
+Comece pela [estrutura do curso](./lessons/_course-structure_.md).
+
+---
+
+**Curso**: Cypress Playground - [Escola Talking About Testing](https://hotmart.com/pt-br/club/talking-about-testing)  
+**Instrutor**: Walmyr Filho
