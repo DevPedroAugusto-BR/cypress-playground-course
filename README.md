@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🌲 Cypress Playground 🛝
 
 👋 Seja bem-vindo(a)!
@@ -40,3 +41,6 @@ Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
 ___
 
 Este é um curso da [**Escola Talking About Testing**](https://hotmart.com/pt-br/club/talking-about-testing).
+=======
+# cypress-playground-course
+>>>>>>> f59153a289919b6359a963131a5bada66fbe70b7
