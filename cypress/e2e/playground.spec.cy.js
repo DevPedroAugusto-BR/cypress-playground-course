@@ -17,4 +17,14 @@ describe('Cypress Playground', () => {
       "You've been successfully subscribed to our newsletter."
     ).should('be.visible')
   })
+
+  it('enter a type text in the first "Sign Here"', () => {
+    
+    cy.get('[placeholder="Joe Doe"]')
+    .scrollIntoView()
+    .should('be.visible')
+    .type('Pedro')
+
+    cy.contains('#signature', 'Pedro').should('be.visible')
+  })
 })
