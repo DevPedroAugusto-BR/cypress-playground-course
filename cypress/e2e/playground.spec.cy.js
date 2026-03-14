@@ -38,4 +38,23 @@ describe('Cypress Playground', () => {
 
     cy.contains('[id="signature-triggered-by-check"]', 'Pedro Augusto Mendes').should('be.visible')
   })
+
+  it.only('validate text after click in radio buttons', () => {
+    //Validando que o on está marcado como padrão
+    cy.contains('#on-off', 'ON').should('be.visible')
+
+    //Setando para off
+    cy.get('#off').should('be.visible').check()
+    //Validando que o valor foi setado
+    cy.contains('#on-off', 'OFF').should('be.visible')
+    cy.contains('#on-off', 'ON').should('not.exist')
+
+    //Setando para On
+    cy.get('#on').should('be.visible').check()
+    
+    //Validando que o valor foi setado
+    cy.contains('#on-off', 'ON').should('be.visible')
+    cy.contains('#on-off', 'OFF').should('not.exist')
+  })
 })
+
