@@ -39,7 +39,7 @@ describe('Cypress Playground', () => {
     cy.contains('[id="signature-triggered-by-check"]', 'Pedro Augusto Mendes').should('be.visible')
   })
 
-  it.only('validate text after click in radio buttons', () => {
+  it('validate text after click in radio buttons', () => {
     //Validando que o on está marcado como padrão
     cy.contains('#on-off', 'ON').should('be.visible')
 
@@ -55,6 +55,21 @@ describe('Cypress Playground', () => {
     //Validando que o valor foi setado
     cy.contains('#on-off', 'ON').should('be.visible')
     cy.contains('#on-off', 'OFF').should('not.exist')
+  })
+
+  it('Implements select test in cypress', () => {
+    //Encontrando o select para interação
+    cy.get('#selection-type').should('be.visible').select(2)
+
+/*     //Selecionando o elemeno standard
+    cy.get('#selection-type').select(2) */
+
+    //Validando o resultado
+    cy.contains('#select-selection', 'STANDARD').should('be.visible')
+
+    //Selecionando o basic, agora
+    cy.get('#selection-type').select('Basic')
+    cy.contains('#select-selection', 'BASIC').should('be.visible')
   })
 })
 
