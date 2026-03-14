@@ -27,4 +27,15 @@ describe('Cypress Playground', () => {
 
     cy.contains('#signature', 'Pedro').should('be.visible')
   })
+
+  it('check and uncheck the checkbox', () => {
+    cy.get('[placeholder="Jane Doe"]')
+    .scrollIntoView()
+    .should('be.visible')
+    .type('Pedro Augusto Mendes')
+
+    cy.get('[type="checkbox"]').check().should('be.checked')
+
+    cy.contains('[id="signature-triggered-by-check"]', 'Pedro Augusto Mendes').should('be.visible')
+  })
 })
