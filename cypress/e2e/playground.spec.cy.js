@@ -72,7 +72,7 @@ describe('Cypress Playground', () => {
     cy.contains('#select-selection', 'BASIC').should('be.visible')
   })
 
-  it.only('Select multiples options em select champs', () => {
+  it('Select multiples options em select champs', () => {
     //Validando estado inicial
     cy.contains('[id="fruits-paragraph"]', "You haven't selected any fruit yet.").should('be.visible')
 
@@ -80,6 +80,17 @@ describe('Cypress Playground', () => {
 
     //Validando o resultado
     cy.contains('p', "You've selected the following fruits: apple, banana, date").should('be.visible')
+  })
+
+  it.only('learning to make upload in cypress application', () => {
+    //Validação estado inicial
+    cy.contains('[id="try-it-out"]', 'Try it out by creating a test that selects a file and make sure the correct file name is displayed.').should('be.visible')
+
+    //Realizando o upload
+    cy.get('input[type="file"]').selectFile('cypress/fixtures/example.json') 
+
+    //Realizando a validação
+    cy.contains('[id="file"]', "The following file has been selected for upload: example.json").should('be.visible')
   })
 })
 
