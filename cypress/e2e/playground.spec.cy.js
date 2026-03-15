@@ -71,5 +71,15 @@ describe('Cypress Playground', () => {
     cy.get('#selection-type').select('Basic')
     cy.contains('#select-selection', 'BASIC').should('be.visible')
   })
+
+  it.only('Select multiples options em select champs', () => {
+    //Validando estado inicial
+    cy.contains('[id="fruits-paragraph"]', "You haven't selected any fruit yet.").should('be.visible')
+
+    cy.get('select[multiple]').select(['Apple', 'Banana', 'Date'])
+
+    //Validando o resultado
+    cy.contains('p', "You've selected the following fruits: apple, banana, date").should('be.visible')
+  })
 })
 
