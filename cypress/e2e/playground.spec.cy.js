@@ -82,7 +82,7 @@ describe('Cypress Playground', () => {
     cy.contains('p', "You've selected the following fruits: apple, banana, date").should('be.visible')
   })
 
-  it.only('learning to make upload in cypress application', () => {
+  it('learning to make upload in cypress application', () => {
     //Validação estado inicial
     cy.contains('[id="try-it-out"]', 'Try it out by creating a test that selects a file and make sure the correct file name is displayed.').should('be.visible')
 
@@ -91,6 +91,32 @@ describe('Cypress Playground', () => {
 
     //Realizando a validação
     cy.contains('[id="file"]', "The following file has been selected for upload: example.json").should('be.visible')
+  })
+
+  it.only('Learning cy.request method', () => {
+    //Validade initial state
+    cy.contains(
+      '[id="try-it-out"]',
+      'Try it out by creating a test that intercepts the request that is triggged after clicking the Get TODO button,',
+      'but this time, simulate an network failure.',
+      'Click the button and make sure to wait for the request to happen.', 
+      'Also, make sure a fallback element is displayed.'
+    ).should('be.visible')
+  
+    //Intercepta a requisição
+    cy.intercept('GET', 'https://jsonplaceholder.typicode.com/todos/1').as('getTodos')
+    
+    //Realizando a ação
+    cy.contains('button', 'Get TODO').should('be.visible').click()
+
+    //Pegando a resposta e validando
+    cy.wait('@getTodos').then((returned) => {
+      const response = returned.response  
+      expect(response.statusCode).to.eq(200)
+      //expect(response.body.userId).to(true)
+    })
+    //Asserção e2e
+    cy.contains('li', 'TODO ID: 1').should('be.visible')
   })
 })
 
