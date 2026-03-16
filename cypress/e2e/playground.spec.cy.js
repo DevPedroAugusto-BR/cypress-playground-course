@@ -119,7 +119,7 @@ describe('Cypress Playground', () => {
     cy.contains('li', 'TODO ID: 1').should('be.visible')
   })
 
-  it.only('Intercepting request and mocking the response', () => {
+  it('Intercepting request and mocking the response', () => {
     //Gerando dados fakes com faker
     cy.generateFixture()
 
@@ -148,5 +148,20 @@ describe('Cypress Playground', () => {
     cy.contains('li', 'Completed:').should('be.visible')
     cy.contains('li', 'User ID:').should('be.visible')
   })
+
+  it.only('Simulation error in network application', () => {
+      //Interceptando a rede
+      cy.intercept('GET', 'https://jsonplaceholder.typicode.com/todos/1', { statusCode: 500}).as('serverFailure')
+
+    //Realizando a ação
+    cy.contains('button', 'Get TODO').should('be.visible').click()
+
+    //capturando a resposta
+    cy.wait('@serverFailure').then((returned) => {
+      expect(returned.response.statusCode).to.eq(500)
+    })
+
+    cy.contains('.error', 'Oops, something went wrong. Refresh the page and try again.').should('be.visible')
+  })  
 })
 
