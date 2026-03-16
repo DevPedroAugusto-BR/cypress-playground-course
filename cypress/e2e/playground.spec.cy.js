@@ -93,7 +93,7 @@ describe('Cypress Playground', () => {
     cy.contains('[id="file"]', "The following file has been selected for upload: example.json").should('be.visible')
   })
 
-  it.only('Learning cy.request method', () => {
+  it('Learning cy.request method', () => {
     //Validade initial state
     cy.contains(
       '[id="try-it-out"]',
@@ -117,6 +117,36 @@ describe('Cypress Playground', () => {
     })
     //Asserção e2e
     cy.contains('li', 'TODO ID: 1').should('be.visible')
+  })
+
+  it.only('Intercepting request and mocking the response', () => {
+    //Gerando dados fakes com faker
+    cy.generateFixture()
+
+    //Interceptando a rede
+    cy.intercept('GET', 'https://jsonplaceholder.typicode.com/todos/1', { fixture: 'data.json' }).as('getTodos')
+
+    //Realizando a ação
+    cy.contains('button', 'Get TODO').should('be.visible').click()
+
+    //Capturando a resposta e validando
+    cy.wait('@getTodos').then((returned) => {
+      const response = returned.response
+      expect(response.statusCode).to.eq(200)
+      expect(response.body.hits).to.be.a('array')
+      response.body.hits.forEach((i) => {
+        expect(i.userId).to.be.a('number')
+        expect(i.id).to.be.a('number')
+        expect(i.title).to.be.a('string')
+        expect(i.completed).to.be.a('boolean')
+      })
+    })
+
+    //Asserção e2e
+    cy.contains('li', 'TODO ID:').should('be.visible')
+    cy.contains('li', 'Title:').should('be.visible')
+    cy.contains('li', 'Completed:').should('be.visible')
+    cy.contains('li', 'User ID:').should('be.visible')
   })
 })
 
