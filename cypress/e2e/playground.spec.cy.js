@@ -180,3 +180,16 @@ describe('Cypress Playground', () => {
   })
 })
 
+describe.only('API Test', () => {
+  let response
+
+  it('Create a case test for API', () => {
+    cy.request({
+      url: 'https://jsonplaceholder.typicode.com/todos/1',
+      method: 'GET'
+    }).then((returned) => {
+      expect(returned.status).to.eq(200)
+    })
+  })
+})
+
