@@ -178,9 +178,23 @@ describe('Cypress Playground', () => {
 
     cy.contains('.error', 'Oops, something went wrong. Check your internet connection, refresh the page, and try again').should('be.visible')
   })
+
+  Cypress._.times(10, i => {
+      it.only(`selects ${i + 1} out of 10`, () => {
+        //validação estado inicial
+        cy.contains('h2', '.invoke().trigger()').should('be.visible')
+
+        //Encontrando o elemento 
+        let value = 7
+        cy.get('[type="range"]').should('be.visible').invoke('val', value).trigger('change')
+
+        //Validando resultado final
+        cy.contains('[id="level-paragraph"]', `You're on level: ${value}`).should('be.visible')
+      })
+  })
 })
 
-describe.only('API Test', () => {
+describe.skip('API Test', () => {
   let response
 
   it('Create a case test for API', () => {
