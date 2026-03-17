@@ -1,5 +1,5 @@
 describe('Cypress Playground', () => {
-  
+
   beforeEach(() => {
     cy.visit('https://cypress-playground.s3.eu-central-1.amazonaws.com/index.html');
   })
@@ -19,20 +19,20 @@ describe('Cypress Playground', () => {
   })
 
   it('enter a type text in the first "Sign Here"', () => {
-    
+
     cy.get('[placeholder="Joe Doe"]')
-    .scrollIntoView()
-    .should('be.visible')
-    .type('Pedro')
+      .scrollIntoView()
+      .should('be.visible')
+      .type('Pedro')
 
     cy.contains('#signature', 'Pedro').should('be.visible')
   })
 
   it('check and uncheck the checkbox', () => {
     cy.get('[placeholder="Jane Doe"]')
-    .scrollIntoView()
-    .should('be.visible')
-    .type('Pedro Augusto Mendes')
+      .scrollIntoView()
+      .should('be.visible')
+      .type('Pedro Augusto Mendes')
 
     cy.get('[type="checkbox"]').check().should('be.checked')
 
@@ -51,7 +51,7 @@ describe('Cypress Playground', () => {
 
     //Setando para On
     cy.get('#on').should('be.visible').check()
-    
+
     //Validando que o valor foi setado
     cy.contains('#on-off', 'ON').should('be.visible')
     cy.contains('#on-off', 'OFF').should('not.exist')
@@ -61,8 +61,8 @@ describe('Cypress Playground', () => {
     //Encontrando o select para interação
     cy.get('#selection-type').should('be.visible').select(2)
 
-/*     //Selecionando o elemeno standard
-    cy.get('#selection-type').select(2) */
+    /*     //Selecionando o elemeno standard
+        cy.get('#selection-type').select(2) */
 
     //Validando o resultado
     cy.contains('#select-selection', 'STANDARD').should('be.visible')
@@ -87,7 +87,7 @@ describe('Cypress Playground', () => {
     cy.contains('[id="try-it-out"]', 'Try it out by creating a test that selects a file and make sure the correct file name is displayed.').should('be.visible')
 
     //Realizando o upload
-    cy.get('input[type="file"]').selectFile('cypress/fixtures/example.json') 
+    cy.get('input[type="file"]').selectFile('cypress/fixtures/example.json')
 
     //Realizando a validação
     cy.contains('[id="file"]', "The following file has been selected for upload: example.json").should('be.visible')
@@ -99,19 +99,19 @@ describe('Cypress Playground', () => {
       '[id="try-it-out"]',
       'Try it out by creating a test that intercepts the request that is triggged after clicking the Get TODO button,',
       'but this time, simulate an network failure.',
-      'Click the button and make sure to wait for the request to happen.', 
+      'Click the button and make sure to wait for the request to happen.',
       'Also, make sure a fallback element is displayed.'
     ).should('be.visible')
-  
+
     //Intercepta a requisição
     cy.intercept('GET', 'https://jsonplaceholder.typicode.com/todos/1').as('getTodos')
-    
+
     //Realizando a ação
     cy.contains('button', 'Get TODO').should('be.visible').click()
 
     //Pegando a resposta e validando
     cy.wait('@getTodos').then((returned) => {
-      const response = returned.response  
+      const response = returned.response
       expect(response.statusCode).to.eq(200)
       //expect(response.body.userId).to(true)
     })
@@ -149,9 +149,9 @@ describe('Cypress Playground', () => {
     cy.contains('li', 'User ID:').should('be.visible')
   })
 
-  it.only('Simulation error in network application', () => {
-      //Interceptando a rede
-      cy.intercept('GET', 'https://jsonplaceholder.typicode.com/todos/1', { statusCode: 500}).as('serverFailure')
+  it('Simulation error in network application', () => {
+    //Interceptando a rede
+    cy.intercept('GET', 'https://jsonplaceholder.typicode.com/todos/1', { statusCode: 500 }).as('serverFailure')
 
     //Realizando a ação
     cy.contains('button', 'Get TODO').should('be.visible').click()
@@ -162,6 +162,21 @@ describe('Cypress Playground', () => {
     })
 
     cy.contains('.error', 'Oops, something went wrong. Refresh the page and try again.').should('be.visible')
-  })  
+  })
+
+  it('Simulation error in network (connection)', () => {
+    //Interceptando a rede
+    cy.intercept('GET', 'https://jsonplaceholder.typicode.com/todos/1', { forceNetworkError: true }).as('networkFailure')
+
+    //Realizando a ação
+    cy.contains('button', 'Get TODO').should('be.visible').click()
+
+    //Capturando a resposta
+    cy.wait('@networkFailure').then((returned) => {
+      expect(returned.error).to.be.a('Error')
+    })
+
+    cy.contains('.error', 'Oops, something went wrong. Check your internet connection, refresh the page, and try again').should('be.visible')
+  })
 })
 
