@@ -180,17 +180,26 @@ describe('Cypress Playground', () => {
   })
 
   Cypress._.times(10, i => {
-      it.only(`selects ${i + 1} out of 10`, () => {
-        //validação estado inicial
-        cy.contains('h2', '.invoke().trigger()').should('be.visible')
+    it.only(`selects ${i + 1} out of 10`, () => {
+      //validação estado inicial
+      cy.contains('h2', '.invoke().trigger()').should('be.visible')
 
-        //Encontrando o elemento 
-        let value = 7
-        cy.get('[type="range"]').should('be.visible').invoke('val', value).trigger('change')
+      //Encontrando o elemento 
+      let value = 7
+      cy.get('[type="range"]').should('be.visible').invoke('val', value).trigger('change')
 
-        //Validando resultado final
-        cy.contains('[id="level-paragraph"]', `You're on level: ${value}`).should('be.visible')
-      })
+      //Validando resultado final
+      cy.contains('[id="level-paragraph"]', `You're on level: ${value}`).should('be.visible')
+    })
+  })
+
+  it('selects a date and asserts the correct date has been displayead', () => {
+    cy.get('#date').type('2026-03-18').blur()
+
+    cy.contains(
+      '[id="date-paragraph"]', 
+      "The date you've selected is: 2026-03-18"
+    ).should('be.visible')
   })
 })
 
