@@ -213,6 +213,12 @@ describe('Cypress Playground', () => {
     cy.get('#password-input input[type="text"]')
       .should('be.visible')
       .and('have.value', Cypress.env('password'))
+
+    //Interagindo com o checkbos
+    cy.get('[id="show-password-checkbox"]').uncheck()
+
+    cy.get('#password-input input[type="text"]').should('not.exist')
+    cy.get('#password-input input[type="password"]').should('be.visible')
   })
 })
 
