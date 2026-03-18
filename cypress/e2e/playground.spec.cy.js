@@ -180,7 +180,7 @@ describe('Cypress Playground', () => {
   })
 
   Cypress._.times(10, i => {
-    it.only(`selects ${i + 1} out of 10`, () => {
+    it(`selects ${i + 1} out of 10`, () => {
       //validação estado inicial
       cy.contains('h2', '.invoke().trigger()').should('be.visible')
 
@@ -197,9 +197,22 @@ describe('Cypress Playground', () => {
     cy.get('#date').type('2026-03-18').blur()
 
     cy.contains(
-      '[id="date-paragraph"]', 
+      '[id="date-paragraph"]',
       "The date you've selected is: 2026-03-18"
     ).should('be.visible')
+  })
+
+  it.only('learning a protected data with cypress env', () => {
+    //Interagindo com o campo de senha
+    cy.get('[id="password"]').type(Cypress.env('password'))
+
+    //Interagindo com o checkbos
+    cy.get('[id="show-password-checkbox"]').check()
+
+    cy.get('#password-input input[type="password"]').should('not.exist')
+    cy.get('#password-input input[type="text"]')
+      .should('be.visible')
+      .and('have.value', Cypress.env('password'))
   })
 })
 
