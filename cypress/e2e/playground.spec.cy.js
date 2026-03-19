@@ -1,6 +1,9 @@
 describe('Cypress Playground', () => {
+  let now
 
   beforeEach(() => {
+    now = new Date(2026, 3, 19)
+    cy.clock(now)
     cy.visit('https://cypress-playground.s3.eu-central-1.amazonaws.com/index.html');
   })
 
@@ -221,7 +224,7 @@ describe('Cypress Playground', () => {
     cy.get('#password-input input[type="password"]').should('be.visible')
   })
 
-  it.only('how to count elements in cypress', () => {
+  it('how to count elements in cypress', () => {
     //Contando elementos
     cy.get('ul#animals li').should('have.length', 5)
 
@@ -231,6 +234,24 @@ describe('Cypress Playground', () => {
     cy.contains('li', 'Caterpillar').should('be.visible')
     cy.contains('li', 'Cow').should('be.visible')
     cy.contains('li', 'Dog').should('be.visible')
+  })
+
+  it('learning using cy.clock to freeze date', () => {
+    //Validação estado inicial
+    cy.contains('#date-section h2', 'cy.clock').should('be.visible')
+
+    //Validando a data 
+    cy.contains('#date-section-paragraph', `Current date: ${now.toISOString().split('T')[0]}`).should('be.visible')
+  })
+
+  it.only('learning use .then to chain commands', () => {
+    cy.get('#timestamp').then(returned => {
+      const element = returned[0].innerText
+      cy.get('#code').type(element)
+      cy.contains('button', 'Submit').should('be.visible').click()
+
+      cy.contains('span', "Congrats! You've entered the correct code.").should('be.visible')
+    })
   })
 })
 
