@@ -202,7 +202,7 @@ describe('Cypress Playground', () => {
     ).should('be.visible')
   })
 
-  it.only('learning a protected data with cypress env', () => {
+  it('learning a protected data with cypress env', () => {
     //Interagindo com o campo de senha
     cy.get('[id="password"]').type(Cypress.env('password'))
 
@@ -212,13 +212,25 @@ describe('Cypress Playground', () => {
     cy.get('#password-input input[type="password"]').should('not.exist')
     cy.get('#password-input input[type="text"]')
       .should('be.visible')
-      .and('have.value', Cypress.env('password'))
+      .and('have.value', Cypress.env('password'), { log: false })
 
     //Interagindo com o checkbos
     cy.get('[id="show-password-checkbox"]').uncheck()
 
     cy.get('#password-input input[type="text"]').should('not.exist')
     cy.get('#password-input input[type="password"]').should('be.visible')
+  })
+
+  it.only('how to count elements in cypress', () => {
+    //Contando elementos
+    cy.get('ul#animals li').should('have.length', 5)
+
+    //Validando elementos
+    cy.contains('li', 'Camel').should('be.visible')
+    cy.contains('li', 'Cat').should('be.visible')
+    cy.contains('li', 'Caterpillar').should('be.visible')
+    cy.contains('li', 'Cow').should('be.visible')
+    cy.contains('li', 'Dog').should('be.visible')
   })
 })
 
