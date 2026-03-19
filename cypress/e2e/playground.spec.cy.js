@@ -244,13 +244,28 @@ describe('Cypress Playground', () => {
     cy.contains('#date-section-paragraph', `Current date: ${now.toISOString().split('T')[0]}`).should('be.visible')
   })
 
-  it.only('learning use .then to chain commands', () => {
+  it('learning use .then to chain commands', () => {
     cy.get('#timestamp').then(returned => {
       const element = returned[0].innerText
       cy.get('#code').type(element)
       cy.contains('button', 'Submit').should('be.visible').click()
 
       cy.contains('span', "Congrats! You've entered the correct code.").should('be.visible')
+    })
+  })
+
+  it('types an incorrect code and asserts on the error message', () => {
+    cy.get('#code').type('123456')
+    cy.contains('button', 'Submit').should('be.visible').click()
+
+    cy.contains('span', "The provided code isn't correct. Please, try again.").should('be.visible')
+  })
+
+  it.only('learning to use cy.readfile and make dowload file', () => {
+    cy.contains('a', 'Download a text file').click()
+
+    cy.readFile('cypress/downloads/example.txt').then((text) => {
+      expect(text).to.eq('Hello, World!')
     })
   })
 })
